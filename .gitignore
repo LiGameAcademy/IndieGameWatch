@@ -1,0 +1,11 @@
+# Godot-specific ignores
+.godot/
+export.cfg
+export_presets.cfg
+
+# Godot Mono-specific ignores
+.mono/
+
+# General ignores
+*.import
+.DS_Store
