@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>杀戮尖塔2 · “画质 / Godot / 创新”关键词占比</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      width:100%;
+      height:100%;
+    }
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+      background:radial-gradient(circle at top,#4527A0 0%,#12051a 45%,#000 100%);
+      color:#f5f7ff;
+      display:flex;
+      flex-direction:column;
+    }
+    .page{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      width:100%;
+      height:100%;
+    }
+    .header{
+      padding:20px 32px 8px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .title-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+    h1{font-size:24px;letter-spacing:.08em;text-transform:uppercase}
+    .tag{
+      padding:3px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.18);
+      font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.9
+    }
+    .subtitle{font-size:13px;opacity:.84}
+    .layout{
+      flex:1;
+      display:grid;
+      grid-template-columns:minmax(0,1.6fr) minmax(0,1.4fr);
+      gap:18px;
+      padding:0 32px 24px;
+      width:100%;
+      box-sizing:border-box;
+    }
+    @media(max-width:960px){.layout{grid-template-columns:minmax(0,1fr)}}
+    .card{
+      position:relative;border-radius:18px;
+      background:radial-gradient(circle at top left,rgba(186,104,200,.6),rgba(10,7,24,.97));
+      border:1px solid rgba(255,255,255,.07);
+      box-shadow:0 22px 55px rgba(3,0,20,.9);
+      padding:16px 18px 18px;overflow:hidden;
+      display:flex;
+    }
+    .card::before{
+      content:"";position:absolute;inset:-40%;
+      background:
+        radial-gradient(circle at 0% 0%,rgba(255,255,255,.08),transparent 55%),
+        radial-gradient(circle at 100% 100%,rgba(236,64,122,.22),transparent 50%);
+      opacity:.7;pointer-events:none;
+    }
+    .card-inner{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;gap:10px;width:100%}
+    .card-header{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+    .card-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.92}
+    .meta{font-size:11px;opacity:.78;text-align:right}
+    #chart-keywords{width:100%;height:100%;min-height:260px}
+    .explain{font-size:12px;opacity:.92;line-height:1.7}
+    .highlight{font-size:13px;font-weight:600;margin-bottom:6px}
+    .badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+    .badge{
+      padding:2px 8px;border-radius:999px;font-size:10px;
+      border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.18);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="title-row">
+        <h1>KEYWORD SENTIMENT · 少数派的“挑剔”</h1>
+        <span class="tag">画质 · UI · Godot · 创新</span>
+      </div>
+      <p class="subtitle">
+        四类关键词在中文评测中的出现比例，对应的是少数玩家的“细节分”。
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-title">KEYWORD COVERAGE · BY REVIEW</div>
+            <div class="meta">
+              样本：3200 条简体中文评测<br />
+              统计方式：一条评论只要出现一次关键词，就记一次
+            </div>
+          </div>
+          <div id="chart-keywords"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-title">数字背后的含义</div>
+            <div class="meta">百分比含义</div>
+          </div>
+          <div class="explain">
+            <p class="highlight">大部分人只是在说“好玩”、“上头”，只有少数人在聊这些细节。</p>
+            <p>
+              与“画质 / 画面”相关的表述占 <strong>2.75%</strong>，
+              “UI / 界面” 占 <strong>1.84%</strong>，“Godot 引擎” 占 <strong>0.22%</strong>，
+              “缺乏创新” 相关表述占 <strong>0.09%</strong>。
+            </p>
+            <p>
+              这些数字说明：绝大多数玩家并不会为画面或引擎纠结太多，
+              但确实有一小撮人，会把这些点当成评价的一部分写出来。
+            </p>
+            <div class="badge-row">
+              <span class="badge">画质相关：2.75%</span>
+              <span class="badge">UI / 界面：1.84%</span>
+              <span class="badge">Godot 引擎：0.22%</span>
+              <span class="badge">缺乏创新：0.09%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const chart = echarts.init(document.getElementById("chart-keywords"));
+    window.addEventListener("resize", () => chart.resize());
+
+    const labels = ["画质相关","UI相关","Godot引擎","创新/缺乏创新"];
+    const ratios = [2.75, 1.84, 0.22, 0.09];
+
+    chart.setOption({
+      backgroundColor:"transparent",
+      tooltip:{
+        trigger:"axis",
+        axisPointer:{type:"shadow"},
+        formatter:params=>{
+          const p = params[0];
+          return `${p.name}<br/>评论占比：<b>${p.value.toFixed(2)}%</b>`;
+        }
+      },
+      grid:{left:"26%",right:"8%",bottom:"10%",top:"10%"},
+      xAxis:{
+        type:"value",
+        axisLine:{lineStyle:{color:"rgba(255,255,255,.4)"}},
+        splitLine:{lineStyle:{color:"rgba(255,255,255,.1)",type:"dashed"}},
+        axisLabel:{color:"rgba(255,255,255,.9)",formatter:v=>v+"%"}
+      },
+      yAxis:{
+        type:"category",
+        data:labels,
+        axisLine:{lineStyle:{color:"rgba(255,255,255,.4)"}},
+        axisLabel:{color:"rgba(255,255,255,.95)",fontSize:12}
+      },
+      series:[{
+        type:"bar",
+        data:ratios,
+        itemStyle:{
+          borderRadius:[0,6,6,0],
+          color:new echarts.graphic.LinearGradient(1,0,0,1,[
+            {offset:0,color:"#FF8A65"},
+            {offset:1,color:"#7E57C2"}
+          ])
+        },
+        label:{
+          show:true,
+          position:"right",
+          color:"#fff",
+          fontSize:11,
+          formatter:p=>p.value.toFixed(2)+"%"
+        }
+      }]
+    });
+  </script>
+</body>
+</html>

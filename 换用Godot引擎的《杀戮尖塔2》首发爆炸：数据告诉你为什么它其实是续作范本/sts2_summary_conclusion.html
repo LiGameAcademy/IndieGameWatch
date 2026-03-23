@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>杀戮尖塔2 · 续作范本的小结</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      width:100%;
+      height:100%;
+    }
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+      background:radial-gradient(circle at top,#1a237e 0%,#030616 50%,#000 100%);
+      color:#f5f7ff;
+      display:flex;
+      flex-direction:column;
+    }
+    .page{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      width:100%;
+      height:100%;
+      padding:32px 32px 24px;
+      box-sizing:border-box;
+    }
+    .container{max-width:1120px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:18px;height:100%}
+    .title-block{display:flex;flex-direction:column;gap:8px}
+    h1{font-size:24px;letter-spacing:.08em;text-transform:uppercase}
+    .subtitle{font-size:13px;opacity:.84}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      flex:1;
+    }
+    @media(max-width:960px){
+      .grid{grid-template-columns:minmax(0,1fr)}
+    }
+    .card{
+      position:relative;
+      border-radius:18px;
+      padding:14px 16px 16px;
+      overflow:hidden;
+      background:radial-gradient(circle at top left,rgba(41,182,246,.45),rgba(8,9,26,.96));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 22px 55px rgba(1,2,18,.9);
+    }
+    .card:nth-child(2){
+      background:radial-gradient(circle at top left,rgba(129,199,132,.5),rgba(8,14,24,.96));
+    }
+    .card:nth-child(3){
+      background:radial-gradient(circle at top left,rgba(255,213,79,.55),rgba(14,8,24,.96));
+    }
+    .card::before{
+      content:"";position:absolute;inset:-40%;
+      background:
+        radial-gradient(circle at 0 0,rgba(255,255,255,.08),transparent 55%),
+        radial-gradient(circle at 100% 100%,rgba(0,229,255,.18),transparent 50%);
+      opacity:.7;pointer-events:none;
+    }
+    .card-inner{position:relative;z-index:1;display:flex;flex-direction:column;gap:6px}
+    .label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.9}
+    .headline{font-size:15px;font-weight:600;margin-top:2px}
+    .desc{font-size:12px;opacity:.92;line-height:1.7;margin-top:4px}
+    .footer{
+      font-size:11px;
+      opacity:.78;
+      margin-top:4px;
+      line-height:1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="container">
+      <section class="title-block">
+        <h1>SLAY THE SPIRE II · 结论页</h1>
+        <p class="subtitle">
+          用三句话总结这款续作：商业表现、玩家付出的时间，和少数派视角下的设计与技术。
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <div class="card-inner">
+            <div class="label">01 · COMMERCIAL REALITY</div>
+            <div class="headline">从 5.7 万到五十多万：十倍放大的续作</div>
+            <p class="desc">
+              一代的历史峰值同时在线是 <strong>57,000 人</strong>；
+              二代在抢先体验首发当天，峰值冲到 <strong>四十多万到五十多万</strong>，
+              直播平台的观看峰值也达到 <strong>约 13 万人</strong>。
+            </p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="label">02 · PLAYER VALUE</div>
+            <div class="headline">3200 条中文评测：多数人已经“值回票价”</div>
+            <p class="desc">
+              在 3200 条简体中文评测中，玩家的平均游玩时长是 <strong>26.2 小时</strong>，
+              中位数是 <strong>24 小时</strong>；其中 <strong>61.03%</strong> 的玩家，
+              把游戏玩到了 20 小时以上。
+            </p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="label">03 · DESIGN &amp; ENGINE</div>
+            <div class="headline">少数人的挑剔：画质、UI、Godot 与创新</div>
+            <p class="desc">
+              在同一份样本中，“画质 / 画面” 相关评论占 <strong>2.75%</strong>，
+              “UI / 界面” 占 <strong>1.84%</strong>，“Godot 引擎” 占 <strong>0.22%</strong>，
+              “缺乏创新” 相关表述占 <strong>0.09%</strong>。
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="footer">
+        综合这些数据，可以给《杀戮尖塔 2》贴上这样一句话：
+        <strong>“这不是一款会颠覆你的 2 代，但它是一份极其清醒、极其务实的续作答卷。”</strong>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

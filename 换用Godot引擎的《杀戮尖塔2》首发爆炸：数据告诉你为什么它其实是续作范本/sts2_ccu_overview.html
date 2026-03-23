@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>杀戮尖塔：一代 vs 二代 CCU & Twitch 概览</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+      background: radial-gradient(circle at top, #26294a 0%, #050512 50%, #000 100%);
+      color: #f5f7ff;
+      display: flex;
+      flex-direction: column;
+    }
+    .page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+    .header {
+      padding: 20px 32px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+    h1 {
+      font-size: 24px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .subtitle {
+      font-size: 13px;
+      opacity: 0.82;
+    }
+    .layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      gap: 18px;
+      padding: 0 32px 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .card {
+      position: relative;
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, rgba(93, 64, 255, 0.4), rgba(8, 10, 26, 0.96));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 22px 55px rgba(2, 3, 15, 0.9);
+      padding: 16px 18px 18px;
+      overflow: hidden;
+      display: flex;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.09), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(0, 229, 255, 0.16), transparent 50%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .card-title {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.92;
+    }
+    .meta {
+      font-size: 11px;
+      opacity: 0.78;
+      text-align: right;
+    }
+    #chart-ccu {
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+    }
+    .headline {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .explain {
+      font-size: 12px;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="title-row">
+        <h1>SLAY THE SPIRE II · 首发战报</h1>
+        <span class="tag">CCU &amp; TWITCH OVERVIEW</span>
+      </div>
+      <p class="subtitle">
+        一代与二代在 Steam 上的峰值同时在线人数，以及首发期间的直播热度概览。
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-title">PEAK CONCURRENT PLAYERS</div>
+            <div class="meta">
+              数据来源：SteamDB / 媒体报道<br />
+              单位：峰值同时在线玩家数
+            </div>
+          </div>
+          <div id="chart-ccu"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-title">HOW BIG IS “TEN TIMES”?</div>
+            <div class="meta">关键数字</div>
+          </div>
+          <div class="headline">从 57,000 到五十多万：十倍级别的放大。</div>
+          <div class="explain">
+            一代《杀戮尖塔》在 Steam 上的历史峰值大约为 <strong>57,000 人同时在线</strong>；
+            二代在抢先体验首发阶段，峰值冲到 <strong>约 430,000 ~ 574,000 人</strong>，
+            直播平台观看峰值也达到 <strong>约 130,000 名观众</strong>。
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const ccuChart = echarts.init(document.getElementById("chart-ccu"));
+    window.addEventListener("resize", () => ccuChart.resize());
+
+    const ccu1 = 57000;
+    const ccu2Low = 430000;
+    const ccu2High = 574000;
+
+    ccuChart.setOption({
+      backgroundColor: "transparent",
+      tooltip: {
+        trigger: "axis",
+        axisPointer: { type: "shadow" },
+        formatter: params => {
+          const p = params[0];
+          const val = p.value.toLocaleString("zh-CN");
+          if (p.name === "STS2（低估计）") {
+            return `Slay the Spire 2（低估计）<br/>峰值同时在线：<b>${val}</b> 人`;
+          }
+          if (p.name === "STS2（高估计）") {
+            return `Slay the Spire 2（高估计）<br/>峰值同时在线：<b>${val}</b> 人`;
+          }
+          return `Slay the Spire 1<br/>历史峰值同时在线：<b>${val}</b> 人`;
+        }
+      },
+      grid: { left: "12%", right: "6%", bottom: "20%", top: "10%" },
+      xAxis: {
+        type: "category",
+        data: ["STS1", "STS2（低估计）", "STS2（高估计）"],
+        axisLine: { lineStyle: { color: "rgba(255,255,255,0.4)" } },
+        axisLabel: { color: "rgba(255,255,255,0.9)", fontSize: 11 }
+      },
+      yAxis: {
+        type: "value",
+        axisLine: { lineStyle: { color: "rgba(255,255,255,0.4)" } },
+        splitLine: { lineStyle: { color: "rgba(255,255,255,0.06)", type: "dashed" } },
+        axisLabel: {
+          color: "rgba(255,255,255,0.9)",
+          formatter: v => v / 1000 + "k"
+        }
+      },
+      series: [
+        {
+          type: "bar",
+          data: [ccu1, ccu2Low, ccu2High],
+          itemStyle: {
+            borderRadius: [6, 6, 0, 0],
+            color: params => {
+              if (params.dataIndex === 0) {
+                return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "#4FC3F7" },
+                  { offset: 1, color: "#01579B" }
+                ]);
+              }
+              if (params.dataIndex === 1) {
+                return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "#FFCA28" },
+                  { offset: 1, color: "#F57C00" }
+                ]);
+              }
+              return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: "#FF8A65" },
+                { offset: 1, color: "#BF360C" }
+              ]);
+            }
+          },
+          label: {
+            show: true,
+            position: "top",
+            color: "#fff",
+            fontSize: 11,
+            formatter: p => (p.value / 1000).toFixed(1) + "k"
+          }
+        }
+      ]
+    });
+  </script>
+</body>
+</html>
